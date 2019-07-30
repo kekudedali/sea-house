@@ -1,0 +1,168 @@
+.app-login{
+    $altHeight:68px;
+    $minWidth: 1220px;
+    overflow-y: auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+    top: 0;
+    bottom: 0;
+    .al-main {
+        overflow: hidden;
+        position: relative;
+        min-width: $minWidth;
+        height: calc(100% - 62px);
+        min-height: 800px;
+        background-image: #fff;
+        .al-bg {
+			width:100%;height:600px;
+			background-image: url(../../assets/images/timg2.jpg);
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .alm-form-wrap {
+			position:absolute;
+			top:0;left:0;right:0;bottom:0;
+			.title{
+				position:absolute;
+				width:100%;
+				text-align: center;
+				top:210px;
+				font-size:34px;font-weight:700;color:#fff;
+			}
+        }
+        .alm-form {
+            box-shadow: 0 0 12px 0 rgba(117, 145, 194, 0.64);
+            padding: 32px 60px;
+            border-radius: 4px;
+            background-color: white;
+            position: absolute;
+			top: 290px;
+			left: calc(50% - 220px);
+            z-index: 1;
+            .almf-input-wrap {
+                position: relative;
+                display: flex;
+                width: 320px;
+                &.is-empty:not(.is-focus) {
+                    input {
+                        border-color: #fd5959;
+                        box-shadow: 0 0 3px 0 #fd5959;
+                    }
+                    .empty-mes {
+                        display: inline;
+                    }
+                }
+                &.code {
+                    input {
+                        padding-right: 86px;
+                    }
+                }
+                .empty-mes {
+                    display: none;
+                    position: absolute;
+                    font-size: 12px;
+                    color: #fd5959;
+                    top: 12px;
+                    &.code {
+                        right: 104px;
+                    }
+                    &.right {
+                        right: 16px;
+                    }
+                }
+                .iconfont {
+                    position: absolute;
+                    left: 8px;
+                    top: 10px;
+                    font-size: 22px;
+                    color: #8391A4;
+                }
+                input {
+                    flex: 1;
+                    font-size: 14px;
+                    padding: 12px 0 12px 35px;
+                    border-radius: 5px;
+                    border: 1px solid #bdbdbd;
+                    outline: none;
+                    margin-bottom: 30px;
+                    transition: border-color .2s;
+                    &::-webkit-input-placeholder {
+                        color: #9eadc2;
+                    }
+                    &:focus {
+                        box-shadow: 0 0 4px 0 #326bf3;
+                    }
+                }
+                img {
+                    cursor: pointer;
+                    position: absolute;
+                    right: 4px;
+                    height: 34px;
+                    line-height: 34px;
+                    font-size: 12px;
+                    color: #9eadc2;
+                    width: 88px;
+                    margin-left: 10px;
+                    margin-top: 4px;
+                }
+                .almfiw-tips {
+                    color: #9eadc2;
+                    font-size: 12px;
+                    position: absolute;
+                    top: 47px;
+                    left: 31px;
+                }
+                .mes-code {
+                    font-size: 12px;
+                    position: absolute;
+                    right: 4px;
+                    height: 34px;
+                    margin: 4px 0 0 10px;
+                    width: 88px;
+                    padding: 0;
+                }
+            }
+            .almf-title {
+                font-size: 16px;
+                font-weight: bold;
+                margin:0 auto 30px;
+                border-bottom: 4px solid #409EFF;
+                padding-bottom: 12px;
+                width: 62px;
+                white-space: nowrap;
+            }
+            .almf-submit {
+				width:100%;
+                margin: 10px 0;
+                font-size: 16px;
+                padding: 13px 15px;
+                border-radius: 5px;
+                color: #fff;
+            }
+            .almf-foot {
+                display: flex;
+                justify-content: space-between;
+                font-size: 12px;
+                margin-bottom: 20px;
+                label {
+                    font-weight: normal;
+                }
+                a {
+                    color: #326bf3;
+                }
+            }
+            .almf-login {
+                text-align: center;
+                font-size: 14px;
+                span {
+                    color: #47525e;
+                }
+                a {
+                    color: #326bf3;
+                }
+            }
+        }
+    }
+}
