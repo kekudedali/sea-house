@@ -6,7 +6,7 @@
       <div class="alm-form-wrap">
         <div class="title">sea house</div>
         <transition name="zoom">
-          <Login/>
+          <Login v-if="$route.query.isForgot!=='true'" @change="changeForm(true)"/>
           <!-- <Forgot/> -->
         </transition>
       </div>
@@ -17,6 +17,7 @@
 <script>
 import Login from "./components/login";
 import Forgot from "./components/forgot";
+import { enCode, deCode, getCodeTime } from "@/utils";
 
 export default {
   name: "login",

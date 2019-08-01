@@ -12,12 +12,9 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: "https://carapis.123cx.com/",
+        target: "http://220.170.144.37:8092",
         changeOrigin: true,
         secure: false,
-        pathRewrite: {
-          '^/api': ''
-        }
       }
     },
 

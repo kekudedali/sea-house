@@ -57,6 +57,7 @@ import { getUrlDomain } from "@/utils";
 import TipCompletion from "./tip-completion";
 import { saveAccount, savePassword } from "@/store/account";
 import Cookies from "js-cookie";
+import { baseUrl } from "@/utils/urls";
 
 export default {
   components: { TipCompletion },
@@ -65,7 +66,7 @@ export default {
       username: "",
       password: "",
       code: "",
-      checkCodeImg: "/api" + "/auth/captcha", //图形验证码图
+      checkCodeImg: baseUrl + "/auth/captcha", //图形验证码图
       imageCodeCount: 0,
       isRemember: true,
       isLoading: false
@@ -84,26 +85,44 @@ export default {
     },
     // 登录提交
     submit() {
-      debugger
       if (!this.isLoading && this.$parent.beforeSubmiy()) {
         this.startLoading();
         // 将axios默认的contenttype变为x-www-form-urlencoded（格式化参数）;
         var formData = new URLSearchParams();
-        formData.append('account',this.username);
+        formData.append("account", this.username);
         // 求字符串加密的代码，就是EncryptString(Source, Key: pchar): pchar;这种
-        formData.append('password',encryptedString(bodyRSA(),this.password));
-        formData.append('captcha',this.code);
-        loginApi.login(formData).then(({data:{data,result,resultDesc}})=>{
-          this.endLoading();
-          this.submitSuccess(data,result,resultDesc)
-        }).catch(()=>{
-          this.endLoading();
-          this.imageCodeCount = ++this.imageCodeCount;
-        })
+        formData.append("password", encryptedString(bodyRSA(), this.password));
+        formData.append("captcha", this.code);
+        loginApi
+          .login(formData)
+          .then(({ data: { data, result, resultDesc } }) => {
+            this.endLoading();
+            this.submitSuccess(data, result, resultDesc);
+          })
+          .catch(() => {
+            this.endLoading();
+            this.imageCodeCount = ++this.imageCodeCount;
+          });
       }
     },
-    submitSuccess(data,result,){
-
+    submitSuccess(data, result, resultDesc) {
+      let isOk = result === "true";
+      this.$message[isOk ? "success" : "error"](resultDesc);
+      if (isOk) {
+        let redirectUrl = this.$route.query["redirect"],
+          origin = window.location.origin,
+          password = this.isRemember ? this.password : "",
+          domain = getUrlDomain(redirectUrl || origin);
+        savePassword(this.username, password, domain);
+        saveAccount(this.username);
+        if (data) {
+          Cookies.set("userInfo", JSON.stringify(data));
+          this.$store.dispatch("SetUserInfo");
+        }
+        window.location.href = redirectUrl ? redirectUrl : origin;
+      } else {
+        this.imageCodeCount = ++this.imageCodeCount;
+      }
     },
     // @content-visibly（子组件通过这个触发父组件）="contentVisiblyAccount"（父组件里面的方法）
     contentVisiblyAccount(d) {

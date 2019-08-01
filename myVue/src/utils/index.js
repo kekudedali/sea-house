@@ -1,10 +1,21 @@
 import { Message } from 'element-ui';
+import '@/vendor/base64';
+import '@/vendor/jsencrypt';
 import router from "../router";
 import Cookies from 'js-cookie';
 import api from '@/api/common/login';
 
 
-
+/**
+ * 获取编码时间
+ * @param target
+ * @returns {*}
+ */
+export const getCodeTime = target => {
+    let str = Base64.decode((target + '').slice(12, -6)),
+        index = str.indexOf('@');
+    return str.slice(index + 1);
+};
 /**
  * 退出登录
  * @param isMessage
