@@ -85,7 +85,7 @@ export default {
     },
     // 登录提交
     submit() {
-      if (!this.isLoading && this.$parent.beforeSubmiy()) {
+      if (!this.isLoading && this.$parent.beforeSubmit()) {
         this.startLoading();
         // 将axios默认的contenttype变为x-www-form-urlencoded（格式化参数）;
         var formData = new URLSearchParams();
@@ -110,6 +110,7 @@ export default {
       this.$message[isOk ? "success" : "error"](resultDesc);
       if (isOk) {
         let redirectUrl = this.$route.query["redirect"],
+        // window.location.origin返回站点主地址
           origin = window.location.origin,
           password = this.isRemember ? this.password : "",
           domain = getUrlDomain(redirectUrl || origin);

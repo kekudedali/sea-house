@@ -1,9 +1,9 @@
 import A from 'axios';
 import { Message } from 'element-ui';
 import { goToLogout } from "./index";
-
+import { baseUrl } from "@/utils/urls";
 const service = A.create({
-    baseURL: '/api',
+    baseURL: baseUrl,
     timeout: 30000,
     withCredentials: true,
     cancelToken: new A.CancelToken(c => (A.requestCancel = c))
