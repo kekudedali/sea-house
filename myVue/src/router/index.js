@@ -1,33 +1,42 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
-import Login from '@/views/login/index';
+import staticRouter from './static.js';
 import Element from "element-ui";
-import http from "axios/index";
-
-Vue.use(Router)
+// 页面进度条
+// import NProgress from "nprogress";
+Vue.use(Router);
+export const constantRouterMap = [
+  ...staticRouter
+];
 
 const router = new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
-      redirect:"login",
-    },
-    {
-      path: '/login',
-      name: 'login',
-      menuCode: '',
-      component:Login,
-      hidden:false,
-      meta:{
-        title:'登陆',
-        requiresAuth:false
-      },
-      noDropdown: true
-    }
-  ]
+  mode: "hash",
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRouterMap
 })
+
+router.beforeEach((to, form, next) => {
+  let requiresAuth = to.meta ? to.meta.requiresAuth : true;
+  let rules = store.getters.rules;
+  let user = store.getters.user;
+  if (requiresAuth && !user) {
+    next('/login');
+  } else {
+    if (to.path != '/login' && user && (!rules || rules.length <= 0)) {
+      next();
+    } else {
+      if (to.matched.length === 0) {
+        if (form.name) {
+          Element.Message.error("地址有误");
+        }else{
+          next('/login');
+        }
+      }else{
+        next()
+      }
+    }
+  }
+})
+
 
 export default router;

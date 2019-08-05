@@ -6,7 +6,12 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+    computed: {
+    requiresAuth() {
+      return !!this.$route.meta.requiresAuth;
+    }
+  },
 }
 </script>
 
