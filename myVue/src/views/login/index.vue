@@ -42,7 +42,6 @@ export default {
     beforeSubmit() {
       let result = true,
         els = this.$el.querySelectorAll(".almf-input:not(.no-require)") || [];
-      debugger;
       for (let i of els) if (!this.checkElEmptyValue(i)) result = false;
       for (let i of els)
         if (!result || !this.checkElPatternValue(i)) {

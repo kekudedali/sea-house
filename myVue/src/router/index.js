@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import staticRouter from './static.js';
 import Element from "element-ui";
+import store from "../store";
+
 // 页面进度条
 // import NProgress from "nprogress";
 Vue.use(Router);
