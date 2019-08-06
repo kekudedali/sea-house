@@ -36,7 +36,7 @@ let home = {
 	hidden: true,
 	meta: {
 		title: '首页',
-		requiresAuth: false
+		requiresAuth: true
 	},
 	noDropdown: true
 }
